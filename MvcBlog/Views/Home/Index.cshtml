@@ -1,0 +1,43 @@
+﻿@model IEnumerable<MvcBlog.Models.Makale> 
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-sm-12">
+    @foreach (var item in Model)
+    {
+    <article>
+        <h2>
+            <a href="/Home/MakaleDetay/@item.MakaleId">@item.Baslik</a>
+        </h2>
+        <p class="lead">
+            <span>
+                <img class="img-circle img-responsive" width="50" src="@item.Uye.Foto" alt="@item.Uye.AdSoyad" /> <a href="/Uye/Index/@item.Uye.UyeId">@item.Uye.KullaniciAdi</a>
+            </span>
+        
+        <span class="glyphicon glyphicon-time"></span>@string.Format("{0:MMM yyyy}", item.Tarih)
+        
+            <span class="glyphicon glyphicon-tags"></span>@item.Etikets.Count()
+        
+            <hr />
+            <img class="img-responsive" src="@item.Foto" alt="@item.Baslik" />
+        </p>
+
+            @if (item.Icerik.Length > 150)
+            {
+            <p>@Html.Raw(item.Icerik.Substring(0, 150)) ...</p>
+        }
+        else
+        {
+            <p>@Html.Raw(item.Icerik) ...</p>
+        }
+
+
+            <a class="btn btn-primary" href="/Home/MakaleDetay/@item.MakaleId">Devamını Oku<span class="glyphicon glyphicon-chevron-right"></span></a>
+
+            <hr style="color:black" />
+        </article>
+
+    }
+</div>
